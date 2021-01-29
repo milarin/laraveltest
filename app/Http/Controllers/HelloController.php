@@ -8,12 +8,15 @@ use Illuminate\Http\Response;
 class HelloController extends Controller
 {
     public function index(Request $request){
-        return view('hello', ['data'=>$request->data]);
+        return view('hello', ['msg'=>'フォームを入力：']);
     }
     public function post(Request $request) {
-        $data = [
-            'msg' => $request->msg
+        $validate_rule = [
+            'name' => 'required',
+            'mail' => 'email',
+            'age' => 'numeric|between:0,150',
         ];
-        return view('hello', $data);
+        $this->validate($request, $validate_rule);
+        return view('hello', ['msg'=>'正しく入力されました。']);
     }
 }

@@ -22,7 +22,6 @@
 
   @endcomponent
 
-  <p>{{ $msg }}</p>
   @if (count($errors) > 0)
   <p>入力時に問題があります。再入力してください。</p>
   @endif
@@ -44,6 +43,17 @@
     <tr><th></th><td><input type="submit" value='send'></td></tr>
   </table>
   </form>
+
+  <table>
+    <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
+    @foreach ($items as $item)
+      <tr>
+        <td>{{ $item -> name }}</td>
+        <td>{{ $item -> mail }}</td>
+        <td>{{ $item -> age }}</td>
+      </tr>
+    @endforeach
+  </table>
 @endsection
 
 @section('footer')

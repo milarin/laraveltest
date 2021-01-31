@@ -54,4 +54,22 @@ class HelloController extends Controller
         DB::updata('updata people set name = :name, mail = :mail, age = :age where id = :id', $param);
         return redirect('/hello');
     }
+    public function del(Request $request)
+    {
+        $param = ['id' => $request->id];
+        $item = DB::select('select * from people where id = :id', $param);
+        return view('del', ['form' => $item[0]]);
+    }
+    public function remove(Request $request)
+    {
+        $param = ['id' => $request->id];
+        DB::delete('delete from people where id = :id', $param);
+        return redirect('/hello');
+    }
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $items = DB::table('people')->where('id', '<=', $id)->get();
+        return view('show', ['items' => $items]);
+    }
 }
